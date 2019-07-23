@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<!-- saved from url=(0028)https://lab.hakim.se/spiral/ -->
+<html lang="en" class="gr__lab_hakim_se"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<title>K nearest neighbour</title>
+		<meta name="author" content="Hakim El Hattab">
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<style>
+a:link, a:visited {
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a:hover, a:active {
+  background-color: #111;
+}
+</style>
+		<script>
+//A javascript library for machine learning
+//Starting from k nearest neighbour classifier algirithm
+//Developed By DANISH BANSAL 
+//Github: https://www.github.com/danishbansal808
+//Gmail: danishbansal808@gmail.com
+//Linkedin: https://www.linkedin.com/in/danish-bansal-881472148/
+console.log(`Developed By DANISH BANSAL 
+Github: https://www.github.com/danishbansal808
+Gmail: danishbansal808@gmail.com
+Linkedin: https://www.linkedin.com/in/danish-bansal-881472148`)
+var EuclideanDistance=function(inputval, predval){
+    var x = inputval;
+    var y = predval;
+    console.log(`EuclideanDistance() inputval :${x} and predval: ${y}`)
+    // The sum of the squared
+    // differences of the elements
+    let S = 0;
+
+    for (key=0;key<x.length;key++){
+        S += Math.pow(x[key]-y[key], 2);
+      }
+    // The square root of the sum
+	console.log(`EuclideanDistance is ${Math.sqrt(S)}`)
+    return Math.sqrt(S);
+}
+
+var PlacesOfVote=function(ed,sed){
+  console.log(`PlacesOfVote() ed :${ed} and sed: ${sed}`)
+  for(x=0;x<sed.length;x++){
+    for(y=0;y<ed.length;y++){
+      if(sed[x]==ed[y]){
+        Voting_Positions.push(y)
+      }
+    }
+  }
+}
+
+var OutputsAtVotingPostion=function(Voting_Positions,Out){
+  console.log(`OutputsAtVotingPostion(), Voting_Positions: ${Voting_Positions} and Out : ${Out}`)
+  for(num=0;num<Voting_Positions.length;num++){
+    Outputs_At_Voting_Postions.push(Out[Voting_Positions[num]])
+  }
+}
+
+var FinalVote=function(Outputs_At_Voting_Postions){
+  var Zeroes=0,Ones=0;
+  for(predval=0;predval<Outputs_At_Voting_Postions.length;predval++){
+    if(Outputs_At_Voting_Postions[predval]==0){
+      Zeroes = Zeroes + 1;
+    }
+    if(Outputs_At_Voting_Postions[predval]==1){
+      Ones = Ones + 1;
+    }
+  }
+  console.log(`FinalVote() OutputsAtVotingPostion() : ${Outputs_At_Voting_Postions}, Zeroes: ${Zeroes}, Ones: ${Ones}`)
+  if(Zeroes>Ones){
+    return 0;
+  }
+  else{
+    return 1;
+  }
+}
+
+var Voting_Positions=[]
+var Outputs_At_Voting_Postions=[]
+var pba=[];//predection_by_algorithm array[_]
+
+var Prediction = function(ed,kneighbour,out){
+  console.log(`Prediction() ed: ${ed}, kneighbour: ${kneighbour}, out: ${out}`)
+  var sed=Array.from(ed);//copying the ed array for sorting purpose
+  sed.sort(function(a, b){return a - b})//sorted ed array
+console.log(sed)
+  sed=sed.slice(0,kneighbour);
+console.log(sed)
+  PlacesOfVote(ed,sed);
+  OutputsAtVotingPostion(Voting_Positions,out)
+  pba.push(FinalVote(Outputs_At_Voting_Postions));
+  console.log(pba[0]);
+}
+
+var inp=[[6.0,100],[6.1,95],[3.0,30],[3.2,35]];//input values array in form [[_,_],[_,_],[_,_],[_,_]]
+var out=[0,0,1,1];//respective output array[_,_,_,_]
+var pv=[3.9,40];//predection_values array[_,_]
+console.log(`Inputs are ${inp}
+Outputs are ${out}
+Prediction Value is ${pv}
+Kneighbours are 3 `)
+var Knn=function(inp,pred,out){
+  console.log(inp);
+  console.log(pred);
+  console.log(out);
+ var ed=[];//array after calculating euclidean distance from each input value and prediction_value
+ for(val=0;val<inp.length;val++){
+   ed.push(EuclideanDistance(inp[val],pred))
+ }
+ Prediction(ed,3,out)
+}
+
+Knn(inp,pv,out);
+</script>
+	</head>
+	<body data-gr-c-s-loaded="true">
+		<canvas width="1536" height="722"></canvas>
+		<span class="a2a_kit a2a_kit_size_32 a2a_default_style a2a_follow">
+			<h1>Press ctrl+shift+I to see the KNN algorithm</h1>
+			<p style="font-size:24px" class="w3-xlarge" >
+				Developed By DANISH BANSAL</br>
+				Follow Me On:- 
+						<a  href="https://www.facebook.com/danishbansal808">Facebook</a>
+						<a href="https://www.instagram.com/danish__bansal">Instagram</a>
+						<a href="https://www.linkedin.com/in/danish-bansal-881472148/">Linkedin</a>
+						<a href="mailto:danishbansal808@gmail.com">E-mail</a>
+						<a href="https://www.github.com/danishbansal808">Github</a>
+			<!--	<script async src="https://static.addtoany.com/menu/page.js"></script>-->
+			</p>
+	</span>
+
+		<style type="text/css" media="screen">
+			body {
+				padding: 0;
+				margin: 0;
+				font-family: Helvetica, sans-serif;
+
+				display: flex;
+				height: 100vh;
+				background-color: #111;
+			}
+
+			canvas {
+				margin: auto;
+			}
+
+			span {
+				color: #777;
+				position: absolute;
+				top: 20px;
+				left: 20px;
+				user-select: none;
+			}
+		</style>
+
+		<script async="" src="./Spiral_files/ga.js.download"></script><script>
+			var canvas = document.querySelector( 'canvas' );
+			var context = canvas.getContext( '2d' );
+
+			var time = 0,
+				velocity = 0.1,
+				velocityTarget = 0.1,
+				width,
+				height,
+				lastX,
+				lastY;
+
+			var MAX_OFFSET = 400;
+			var SPACING = 4;
+			var POINTS = MAX_OFFSET / SPACING;
+			var PEAK = MAX_OFFSET * 0.25;
+			var POINTS_PER_LAP = 6;
+			var SHADOW_STRENGTH = 6;
+
+			setup();
+
+			function setup() {
+
+				resize();
+				step();
+
+				window.addEventListener( 'resize', resize );
+				window.addEventListener( 'mousedown', onMouseDown );
+				document.addEventListener( 'touchstart', onTouchStart );
+
+			}
+
+			function resize() {
+
+				width = canvas.width = window.innerWidth;
+				height = canvas.height = window.innerHeight;
+
+			}
+
+			function step() {
+
+				time += velocity;
+				velocity += ( velocityTarget - velocity ) * 0.3;
+
+				clear();
+				render();
+
+				requestAnimationFrame( step );
+
+			}
+
+			function clear() {
+
+				context.clearRect( 0, 0, width, height );
+
+			}
+
+			function render() {
+
+				var x, y,
+					cx = width/2,
+					cy = height/2;
+
+				context.globalCompositeOperation = 'lighter';
+				context.strokeStyle = '#fff';
+				context.shadowColor = '#fff';
+				context.lineWidth = 2;
+				context.beginPath();
+
+				for( var i = POINTS; i > 0; i -- ) {
+
+					var value = i * SPACING + ( time % SPACING );
+
+					var ax = Math.sin( value/POINTS_PER_LAP ) * Math.PI,
+						ay = Math.cos( value/POINTS_PER_LAP ) * Math.PI;
+
+					x = ax * value,
+					y = ay * value * 0.35;
+
+					var o = 1 - ( Math.min( value, PEAK ) / PEAK );
+
+					y -= Math.pow( o, 2 ) * 200;
+					y += 200 * value / MAX_OFFSET;
+					y += x / cx * width * 0.1;
+
+					context.globalAlpha = 1 - ( value / MAX_OFFSET );
+					context.shadowBlur = SHADOW_STRENGTH * o;
+
+					context.lineTo( cx + x, cy + y );
+					context.stroke();
+
+					context.beginPath();
+					context.moveTo( cx + x, cy + y );
+
+				}
+
+				context.lineTo( cx, cy - 200 );
+				context.lineTo( cx, 0 );
+				context.stroke();
+
+			}
+
+			function onMouseDown( event ) {
+
+				lastX = event.clientX;
+				lastY = event.clientY;
+
+				document.addEventListener( 'mousemove', onMouseMove );
+				document.addEventListener( 'mouseup', onMouseUp );
+
+			}
+
+			function onMouseMove( event ) {
+
+				var vx = ( event.clientX - lastX ) / 100;
+				var vy = ( event.clientY - lastY ) / 100;
+
+				if( event.clientY < height/2 ) vx *= -1;
+				if( event.clientX > width/2 ) vy *= -1;
+
+				velocityTarget = vx + vy;
+
+				lastX = event.clientX;
+				lastY = event.clientY;
+
+			}
+
+			function onMouseUp( event ) {
+
+				document.removeEventListener( 'mousemove', onMouseMove );
+				document.removeEventListener( 'mouseup', onMouseUp );
+
+			}
+
+			function onTouchStart( event ) {
+
+				event.preventDefault();
+
+				lastX = event.touches[0].clientX;
+				lastY = event.touches[0].clientY;
+
+				document.addEventListener( 'touchmove', onTouchMove );
+				document.addEventListener( 'touchend', onTouchEnd );
+
+			}
+
+			function onTouchMove( event ) {
+
+				var vx = ( event.touches[0].clientX - lastX ) / 100;
+				var vy = ( event.touches[0].clientY - lastY ) / 100;
+
+				if( event.touches[0].clientY < height/2 ) vx *= -1;
+				if( event.touches[0].clientX > width/2 ) vy *= -1;
+
+				velocityTarget = vx + vy;
+
+				lastX = event.touches[0].clientX;
+				lastY = event.touches[0].clientY;
+
+			}
+
+			function onTouchEnd( event ) {
+
+				document.removeEventListener( 'touchmove', onTouchMove );
+				document.removeEventListener( 'touchend', onTouchEnd );
+
+			}
+		</script>
+
+		<script>
+			var _gaq = [['_setAccount', 'UA-15240703-1'], ['_trackPageview']];
+			(function(d, t) {
+			var g = d.createElement(t),
+			    s = d.getElementsByTagName(t)[0];
+			g.async = true;
+			g.src = ('https:' == location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			s.parentNode.insertBefore(g, s);
+			})(document, 'script');
+		</script>
+	
+</body></html>

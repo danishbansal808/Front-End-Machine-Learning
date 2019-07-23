@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<title>Web Page Design</title>
+<head>
+<script>
+//A javascript library for machine learning
+//Starting from k nearest neighbour classifier algirithm
+//Developed By DANISH BANSAL 
+//Github: https://www.github.com/danishbansal808
+//Gmail: danishbansal808@gmail.com
+//Linkedin: https://www.linkedin.com/in/danish-bansal-881472148/
+console.log(`Developed By DANISH BANSAL 
+Github: https://www.github.com/danishbansal808
+Gmail: danishbansal808@gmail.com
+Linkedin: https://www.linkedin.com/in/danish-bansal-881472148`)
+var EuclideanDistance=function(inputval, predval){
+    var x = inputval;
+    var y = predval;
+    console.log(`EuclideanDistance() inputval :${x} and predval: ${y}`)
+    // The sum of the squared
+    // differences of the elements
+    let S = 0;
+
+    for (key=0;key<x.length;key++){
+        S += Math.pow(x[key]-y[key], 2);
+      }
+    // The square root of the sum
+	console.log(`EuclideanDistance is ${Math.sqrt(S)}`)
+    return Math.sqrt(S);
+}
+
+var PlacesOfVote=function(ed,sed){
+  console.log(`PlacesOfVote() ed :${ed} and sed: ${sed}`)
+  for(x=0;x<sed.length;x++){
+    for(y=0;y<ed.length;y++){
+      if(sed[x]==ed[y]){
+        Voting_Positions.push(y)
+      }
+    }
+  }
+}
+
+var OutputsAtVotingPostion=function(Voting_Positions,Out){
+  console.log(`OutputsAtVotingPostion(), Voting_Positions: ${Voting_Positions} and Out : ${Out}`)
+  for(num=0;num<Voting_Positions.length;num++){
+    Outputs_At_Voting_Postions.push(Out[Voting_Positions[num]])
+  }
+}
+
+var FinalVote=function(Outputs_At_Voting_Postions){
+  var Zeroes=0,Ones=0;
+  for(predval=0;predval<Outputs_At_Voting_Postions.length;predval++){
+    if(Outputs_At_Voting_Postions[predval]==0){
+      Zeroes = Zeroes + 1;
+    }
+    if(Outputs_At_Voting_Postions[predval]==1){
+      Ones = Ones + 1;
+    }
+  }
+  console.log(`FinalVote() OutputsAtVotingPostion() : ${Outputs_At_Voting_Postions}, Zeroes: ${Zeroes}, Ones: ${Ones}`)
+  if(Zeroes>Ones){
+    return 0;
+  }
+  else{
+    return 1;
+  }
+}
+
+var Voting_Positions=[]
+var Outputs_At_Voting_Postions=[]
+var pba=[];//predection_by_algorithm array[_]
+
+var Prediction = function(ed,kneighbour,out){
+  console.log(`Prediction() ed: ${ed}, kneighbour: ${kneighbour}, out: ${out}`)
+  var sed=Array.from(ed);//copying the ed array for sorting purpose
+  sed.sort(function(a, b){return a - b})//sorted ed array
+console.log(sed)
+  sed=sed.slice(0,kneighbour);
+console.log(sed)
+  PlacesOfVote(ed,sed);
+  OutputsAtVotingPostion(Voting_Positions,out)
+  pba.push(FinalVote(Outputs_At_Voting_Postions));
+  console.log(pba[0]);
+}
+
+var inp=[[6.0,100],[6.1,95],[3.0,30],[3.2,35]];//input values array in form [[_,_],[_,_],[_,_],[_,_]]
+var out=[0,0,1,1];//respective output array[_,_,_,_]
+var pv=[3.9,40];//predection_values array[_,_]
+console.log(`Inputs are ${inp}
+Outputs are ${out}
+Prediction Value is ${pv}
+Kneighbours are 3 `)
+var Knn=function(inp,pred,out){
+  console.log(inp);
+  console.log(pred);
+  console.log(out);
+ var ed=[];//array after calculating euclidean distance from each input value and prediction_value
+ for(val=0;val<inp.length;val++){
+   ed.push(EuclideanDistance(inp[val],pred))
+ }
+ Prediction(ed,3,out)
+}
+
+Knn(inp,pv,out);
+</script>
+</head>
+<body>
+</body>
+</html>
